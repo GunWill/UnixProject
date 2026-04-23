@@ -1,20 +1,35 @@
+
 #!/bin/bash
 
 cpu_usage(){
  CPU=$(top -bn1 | grep "Cpu(s):" | \
-	sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
-	awk '{print 100 - $1"%"}')
-	echo "CPU Usage: $CPU"
+        sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
+        awk '{print 100 - $1"%"}')
+        echo "CPU Usage: $CPU"
+} #opens top, where CPU info is stored
+  #gets idle percentage from top
+  #calculates percentage used (total-idle)
+  #prints CPU usage
+
+memory_usage(){
+memory_usage=$(free -m | awk 'NR==2{printf "Memory Usage: %.2f%%\n", $3*100/$2}') #opens where memory is stored, extracts memory usage field, formats it into a percentage 
+echo "$memory_usage" #prints memory usage
 }
 
+disk_usage(){
+disk_usage=$(du -sh | awk '{printf "Disk Usage: %sb\n" , $1}')
+echo "$disk_usage"
+}
 
 display(){
 echo "===> System Monitor <==="
-cpu_usage
+ cpu_usage
+ memory_usage
+ disk_usage
 }
 
 while true; do
-	clear	
+	clear
 	display
 	sleep 2
 	done
