@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 cpu_usage(){
@@ -17,7 +16,7 @@ echo "$memory_usage" #prints memory usage
 }
 
 disk_usage(){
-disk_usage=$(du -sh | awk '{printf "Disk Usage: %sb\n" , $1}')
+disk_usage=$(du -sh | awk '{printf "Disk Usage: %sb\n" , $1}') #opens total disk usage in current directory, prints the amount in Kb
 echo "$disk_usage"
 }
 
@@ -26,10 +25,11 @@ echo "===> System Monitor <==="
  cpu_usage
  memory_usage
  disk_usage
-}
+} #calls each function
 
 while true; do
 	clear
 	display
 	sleep 2
 	done
+#displays all functions in system monitor
